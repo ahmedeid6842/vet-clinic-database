@@ -1,3 +1,4 @@
+-- day 1 --
 -- Find all animals whose name ends in "mon".
 SELECT * FROM animals WHERE name LIKE '%mon';
 
@@ -21,3 +22,60 @@ SELECT * FROM animals WHERE name != 'Gabumon';
 
 -- Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg)
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+-- day 2 -- 
+
+-- use transaction to rollback setting species to unspecified
+BEGIN;
+
+UPDATE animals SET species = 'unspecified';
+
+SELECT * FROM animals; -- Verify the change
+
+ROLLBACK;
+
+SELECT * FROM animals; -- Verify the rollback
+
+
+-- use transaction to commit upadte animal table 
+
+BEGIN;
+
+UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
+
+UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
+
+SELECT * FROM animals; -- Verify the changes
+
+COMMIT;
+
+SELECT * FROM animals; -- Verify the changes persist after commit
+
+-- use transaction to rollback delete table rows 
+
+BEGIN;
+
+DELETE FROM animals;
+
+SELECT * FROM animals; -- Verify the deletion
+
+ROLLBACK;
+
+SELECT * FROM animals; -- Verify all records still exist
+
+-- use tranaction savepoint to rollback to it
+
+BEGIN;
+
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
+
+SAVEPOINT weight_update;
+
+UPDATE animals SET weight_kg = weight_kg * -1;
+
+ROLLBACK TO SAVEPOINT weight_update;
+
+UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
+
+COMMIT;
+
