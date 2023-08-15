@@ -79,3 +79,23 @@ UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
 
 COMMIT;
 
+
+-- Answering the questions ?? 
+-- 1. How many animals are there?
+SELECT COUNT(*) FROM animals;
+
+-- 2. How many animals have never tried to escape?
+SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
+
+-- 3. What is the average weight of animals?
+SELECT AVG(weight_kg) FROM animals;
+
+-- 4.Who escapes the most, neutered or not neutered animals?
+SELECT neutered, MAX(escape_attempts) FROM animals GROUP BY neutered;
+
+
+-- 5. What is the minimum and maximum weight of each type of animal?
+SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
+
+-- 6. What is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY species;
