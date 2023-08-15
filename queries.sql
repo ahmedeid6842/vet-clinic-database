@@ -1,3 +1,4 @@
+-- day 1 --
 -- Find all animals whose name ends in "mon".
 SELECT * FROM animals WHERE name LIKE '%mon';
 
@@ -21,3 +22,80 @@ SELECT * FROM animals WHERE name != 'Gabumon';
 
 -- Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg)
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+-- day 2 -- 
+
+-- use transaction to rollback setting species to unspecified
+BEGIN;
+
+UPDATE animals SET species = 'unspecified';
+
+SELECT * FROM animals; -- Verify the change
+
+ROLLBACK;
+
+SELECT * FROM animals; -- Verify the rollback
+
+
+-- use transaction to commit upadte animal table 
+
+BEGIN;
+
+UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
+
+UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
+
+SELECT * FROM animals; -- Verify the changes
+
+COMMIT;
+
+SELECT * FROM animals; -- Verify the changes persist after commit
+
+-- use transaction to rollback delete table rows 
+
+BEGIN;
+
+DELETE FROM animals;
+
+SELECT * FROM animals; -- Verify the deletion
+
+ROLLBACK;
+
+SELECT * FROM animals; -- Verify all records still exist
+
+-- use tranaction savepoint to rollback to it
+
+BEGIN;
+
+DELETE FROM animals WHERE date_of_birth > '2022-01-01';
+
+SAVEPOINT weight_update;
+
+UPDATE animals SET weight_kg = weight_kg * -1;
+
+ROLLBACK TO SAVEPOINT weight_update;
+
+UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
+
+COMMIT;
+
+
+-- Answering the questions ?? 
+-- 1. How many animals are there?
+SELECT COUNT(*) FROM animals;
+
+-- 2. How many animals have never tried to escape?
+SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
+
+-- 3. What is the average weight of animals?
+SELECT AVG(weight_kg) FROM animals;
+
+-- 4.Who escapes the most, neutered or not neutered animals?
+SELECT neutered, MAX(escape_attempts) FROM animals GROUP BY neutered;
+
+
+-- 5. What is the minimum and maximum weight of each type of animal?
+SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
+
+-- 6. What is the average number of escape attempts per animal type of those born between 1990 and 2000?
+SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY species;

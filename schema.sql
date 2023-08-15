@@ -1,3 +1,4 @@
+-- Create table animals
 CREATE TABLE animals (
   id INT,
   name VARCHAR(255),
@@ -6,3 +7,6 @@ CREATE TABLE animals (
   neutered BOOLEAN,
   weight_kg DECIMAL(10,2)
 );
+
+-- Add a new column to animal table using alter
+ALTER TABLE animals ADD species varchar(255);
