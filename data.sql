@@ -28,3 +28,11 @@ INSERT INTO owners (full_name, age) VALUES
 INSERT INTO species (name) VALUES
   ('Pokemon'),
   ('Digimon');
+
+-- Update the animals table based on species names and owners
+UPDATE animals SET species_id = (
+  CASE
+    WHEN name LIKE '%mon' THEN (SELECT id FROM species WHERE name = 'Digimon')
+    ELSE (SELECT id FROM species WHERE name = 'Pokemon')
+  END
+);

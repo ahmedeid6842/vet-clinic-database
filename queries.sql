@@ -102,10 +102,3 @@ SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1
 
 -- day 3 --
 
--- Update the animals table based on species names and owners
-UPDATE animals SET species_id = (
-  CASE
-    WHEN name LIKE '%mon' THEN (SELECT id FROM species WHERE name = 'Digimon')
-    ELSE (SELECT id FROM species WHERE name = 'Pokemon')
-  END
-);
