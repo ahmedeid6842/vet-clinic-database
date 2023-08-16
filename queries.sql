@@ -113,3 +113,8 @@ SELECT a.name AS animal_name
 FROM animals AS a
 JOIN species AS s ON a.species_id = s.id
 WHERE s.name = 'Pokemon';
+
+-- List all owners and their animals, including those that don't own any animal.
+SELECT o.full_name AS owner_name, a.name AS animal_name
+FROM owners AS o
+LEFT JOIN animals AS a ON o.id = a.owner_id;
