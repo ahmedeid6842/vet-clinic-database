@@ -10,3 +10,19 @@ CREATE TABLE animals (
 
 -- Add a new column to animal table using alter
 ALTER TABLE animals ADD species varchar(255);
+
+-- Create table owners
+CREATE TABLE owners (
+  id SERIAL PRIMARY KEY,
+  full_name TEXT,
+  age INTEGER
+);
+
+-- Create table species
+CREATE TABLE species (
+  id SERIAL PRIMARY KEY,
+  name TEXT
+);
+
+
+
