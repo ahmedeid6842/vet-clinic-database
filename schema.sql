@@ -55,3 +55,11 @@ ADD FOREIGN KEY (vet_id) REFERENCES vets (id);
 
 ALTER TABLE specializations
 ADD FOREIGN KEY (species_id) REFERENCES species (id);
+
+-- create table visits
+CREATE TABLE visits (
+  id SERIAL PRIMARY KEY,
+  animal_id INT,
+  vet_id INT,
+  date DATE
+);
