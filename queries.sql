@@ -168,7 +168,6 @@ FROM vets vt
 LEFT JOIN specializations s ON vt.id = s.vet_id
 LEFT JOIN species sp ON s.species_id = sp.id;
 
-
 -- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
 SELECT a.name AS animal_name
 FROM visits v
@@ -176,7 +175,6 @@ JOIN animals a ON v.animal_id = a.id
 JOIN vets vt ON v.vet_id = vt.id
 WHERE vt.name = 'Stephanie Mendez'
 AND v.date BETWEEN '2020-04-01' AND '2020-08-30';
-
 
 -- What animal has the most visits to vets?
 SELECT a.name AS animal_name, COUNT(v.id) AS visit_count
@@ -186,7 +184,6 @@ GROUP BY a.name
 ORDER BY COUNT(v.id) DESC
 LIMIT 1;
 
-
 -- Who was Maisy Smith's first visit?
 SELECT vt.name AS vet_name
 FROM visits v
@@ -194,4 +191,12 @@ JOIN vets vt ON v.vet_id = vt.id
 JOIN animals a ON v.animal_id = a.id
 WHERE a.owner_id = (SELECT id FROM owners WHERE full_name = 'Maisy Smith')
 ORDER BY v.date ASC
+LIMIT 1;
+
+-- Details for the most recent visit: animal information, vet information, and date of visit.
+SELECT a.name AS animal_name, vt.name AS vet_name, v.date AS visit_date
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+JOIN vets vt ON v.vet_id = vt.id
+ORDER BY v.date DESC
 LIMIT 1;
