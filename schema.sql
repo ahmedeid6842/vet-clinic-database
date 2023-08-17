@@ -63,3 +63,9 @@ CREATE TABLE visits (
   vet_id INT,
   date DATE
 );
+
+ALTER TABLE visits
+ADD FOREIGN KEY (vet_id) REFERENCES vets (id);
+
+ALTER TABLE visits
+ADD FOREIGN KEY (animal_id) REFERENCES animals (id);
