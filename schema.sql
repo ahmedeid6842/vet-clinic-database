@@ -69,3 +69,11 @@ ADD FOREIGN KEY (vet_id) REFERENCES vets (id);
 
 ALTER TABLE visits
 ADD FOREIGN KEY (animal_id) REFERENCES animals (id);
+
+-- Add email column to owner table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- rename date column at visits table to date_of_visit
+ALTER TABLE visits
+RENAME COLUMN date TO date_of_visit;
+
