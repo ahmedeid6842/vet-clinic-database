@@ -69,3 +69,19 @@ ADD FOREIGN KEY (vet_id) REFERENCES vets (id);
 
 ALTER TABLE visits
 ADD FOREIGN KEY (animal_id) REFERENCES animals (id);
+
+-- Add email column to owner table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- rename date column at visits table to date_of_visit
+ALTER TABLE visits
+RENAME COLUMN date TO date_of_visit;
+
+-- create index on visits' animal id column
+CREATE INDEX idx_visits_animal_id ON visits (animal_id);
+
+-- create index on visits' vet_id column
+CREATE INDEX idx_visits_vet_id ON visits (vet_id);
+
+-- create index on owners' email
+CREATE INDEX idx_owners_email ON owners (email);
