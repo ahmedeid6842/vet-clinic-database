@@ -27,6 +27,8 @@
 
 In this project, the objective is to develop a comprehensive database for a veterinary clinic aimed at effectively managing crucial information about animals. The tasks encompass designing and implementing tables using SQL, seamlessly incorporating data entries, and executing diverse queries for information retrieval. The ultimate aim is to forge a meticulously organized database, thereby fostering practical proficiency in handling data within the framework of a relational database system.
 
+![drawSQL-vet-clinic-export-2023-08-24](https://github.com/ahmedeid6842/vet-clinic-database/assets/57197702/f320c967-0c88-45ff-8d1b-3794c1f5862f)
+
 ## 🛠 Built With <a name="built-with"></a>
 
 The project is built using SQL for database management. Getting Started Follow these steps to understand and work on the project:
